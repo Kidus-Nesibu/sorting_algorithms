@@ -8,7 +8,6 @@
  */
 void swap_nodes(listint_t **h, listint_t **n1, listint_t *n2)
 {
-	/* Update next and prev pointers of n1 and n2 */
 	(*n1)->next = n2->next;
 	if (n2->next != NULL)
 		n2->next->prev = *n1;
@@ -31,20 +30,19 @@ void swap_nodes(listint_t **h, listint_t **n1, listint_t *n2)
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *iter, *insert;
+	listint_t *iter, *insert, *tmp;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
-	for (iter = (*list)->next; iter != NULL; iter = iter->next)
+	for (iter = (*list)->next; iter != NULL; iter = tmp)
 	{
+		tmp = iter->next;
 		insert = iter->prev;
 		while (insert != NULL && iter->n < insert->n)
 		{
-			/* Swap nodes and update insert pointer */
 			swap_nodes(list, &insert, iter);
 			print_list((const listint_t *)*list);
-			insert = iter->prev;
 		}
 	}
 }
